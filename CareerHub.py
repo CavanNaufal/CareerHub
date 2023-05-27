@@ -5,10 +5,12 @@ app = Flask(__name__)
 
 # Konfigurasi koneksi database, nanti diganti
 conn = psycopg2.connect(
-    host="localhost",  #neondb gw
-    database="database_name", #
-    user="username", #CareerHubDB
-    password="password" #
+    host="ep-sweet-tree-815718.ap-southeast-1.aws.neon.tech",  #neondb gw
+    database="CareerHubDB", #
+    user="ahmadgeneral86", #CareerHubDB
+    password="eu6CwXJ9LRrB",
+    port=5432 ,#
+    sslmode = True
 )
 cursor = conn.cursor()
 
@@ -25,7 +27,7 @@ def register():
 
     try:
         # Memasukkan data pengguna baru ke dalam database
-        cursor.execute("INSERT INTO pelamar VALUES( DEFAULT, %s,%s, %s, %s, %s)",
+        cursor.execute("INSERT INTO pelamar VALUES(DEFAULT, %s,%s, %s, %s, %s)",
                        (nama_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
         conn.commit()  #melakukan update database 
         return jsonify({'message': 'Registration successful'})
