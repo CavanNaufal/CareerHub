@@ -9,8 +9,8 @@ conn = psycopg2.connect(
     database="CareerHubDB", #
     user="ahmadgeneral86", #CareerHubDB
     password="eu6CwXJ9LRrB",
-    port=5432 ,#
-    sslmode = True
+    port=5432 #
+    #sslmode = True
 )
 cursor = conn.cursor()
 
@@ -18,8 +18,9 @@ cursor = conn.cursor()
 #Login dan register pelamar
 @app.route('/registerPelamar', methods=['POST'])
 def register():
+    headers = {'Content-Type':'application/json'}
     data = request.get_json()
-    nama_pelamar = data.get('username')
+    nama_pelamar = data.get('nama_pelamar')
     alamat_pelamar = data.get('alamat_pelamar')
     password = data.get('password')
     pengalaman = data.get('pengalaman')
@@ -29,11 +30,12 @@ def register():
         # Memasukkan data pengguna baru ke dalam database
         cursor.execute("INSERT INTO pelamar VALUES(DEFAULT, %s,%s, %s, %s, %s)",
                        (nama_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
+        
         conn.commit()  #melakukan update database 
         return jsonify({'message': 'Registration successful'})
-    except psycopg2.IntegrityError as e:
-        conn.rollback()
-        return jsonify({'message': 'Username or email already exists'})
+    # except psycopg2.IntegrityError as e:
+    #     conn.rollback()
+    #     return jsonify({'message': 'Username or email already exists'})
     except Exception as e:
         return jsonify({'message': 'Registration failed', 'error': str(e)})
 
@@ -69,6 +71,7 @@ def registerPerusahaan():
     try:
         cursor.execute("INSERT INTO perusahaan VALUES(DEFAULT,%s,%s,%s,%s)",(nama,pswd,deskripsi,alamat))
         conn.commit()
+        return jsonify({'message': 'Registration successful'})
     except psycopg2.IntegrityError as e:
         conn.rollback()
         return jsonify({'message': 'Username already exists'})
@@ -97,72 +100,136 @@ def loginPerusahaan():
         return jsonify({'message': 'Login failed', 'error': str(e)})
     
 
-@app.route('/findbyPosisition',methods =['GET'])
+@app.route('/findbyPosition',methods =['GET'])
 def findbyPosition():
     data = request.get_json()
     posisi = data.get('posisi')
     
     try:
-        cursor.execute("SELECT * FROM pekerjaan WHERE posisi = %s", (posisi))  #mungkin Query diganti nanti
+        cursor.execute("SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori \
+                            FROM pekerjaan INNER JOIN perusahaan \
+                            ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan \
+                            INNER JOIN kategori \
+                            ON pekerjaan.id_kategori = kategori.id_kategori \
+                            WHERE pekerjaan.posisi = %s", (posisi,))       
         joblist = cursor.fetchall()
-
         if joblist:
             response = make_response(jsonify(joblist))
             response.status_code=200
             return response
         else:
-            return jsonify({'message': 'Pekerjaan dengan posisi ' + posisi + ' tidak ditemukan'})
+            
+            response = make_response(jsonify({'message': 'Pekerjaan dengan ' + posisi + ' sedang tidak tersedia'}))
+            response.status_code=404
+            return response
     except Exception as e:
-        return jsonify({'message': 'an error has ocuured', 'error': str(e)})
+        response = make_response(jsonify({'message': 'an error has ocuured', 'error': str(e)}))
+        response.status_code=500
+        return response
+        
 
 
 @app.route('/findbyCompany', methods=['GET'])
 def findbyCompany():
     data = request.get_json()
     nama_perusahaan = data.get('nama_perusahaan')
-
+    
     try:
-        cursor.execute("SELECT id_perusahaan FROM perusahaan WHERE nama_perusahaan = %s",(nama_perusahaan))
-        companyId = cursor.fetchone()
-        if companyId:
-            cursor.execute("SELECT * FROM pekerjaan WHERE id_perusahaan = %d",(companyId))
-            joblist = cursor.fetchall()
-            if joblist:
-                response = make_response(jsonify(joblist))
-                response.status_code=200
-                return response
-            else:
-                return jsonify({'message': 'Perusahaan ' + nama_perusahaan + ' sedang tidak membuka lamaran'})
+        cursor.execute("SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori \
+                            FROM pekerjaan INNER JOIN perusahaan \
+                            ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan \
+                            INNER JOIN kategori \
+                            ON pekerjaan.id_kategori = kategori.id_kategori \
+                            WHERE nama_perusahaan = %s", (nama_perusahaan,))
+       
+        joblist = cursor.fetchall()
+        
+        if joblist:
+            
+            response = make_response(jsonify(joblist))
+            response.status_code=200
+            return response
         else:
-           response = make_response(jsonify({'message': 'Perusahaan ' + nama_perusahaan + 'tidak ditemukan'}) )
-           response.status_code=404
-           return response 
+            response = make_response(jsonify({'message': 'Perusahaan ' + nama_perusahaan + ' sedang tidak membuka lamaran'}))
+            response.status_code=404
+            return response
     except Exception as e:
-        return jsonify({'message': 'an error has ocuured', 'error': str(e)})
+        response = make_response(jsonify({'message': 'an error has ocuured', 'error': str(e)}))
+        response.status_code=500
+        return response
+
+# def findbyCompany():
+#     data = request.get_json()
+#     nama_perusahaan = data.get('nama_perusahaan')
+
+#     try:
+#         cursor.execute("SELECT id_perusahaan FROM perusahaan WHERE nama_perusahaan = %s",(nama_perusahaan))
+#         companyId = cursor.fetchone()
+#         if companyId:
+#             cursor.execute("SELECT * FROM pekerjaan WHERE id_perusahaan = %d",(companyId))
+#             joblist = cursor.fetchall()
+#             if joblist:
+#                 response = make_response(jsonify(joblist))
+#                 response.status_code=200
+#                 return response
+#             else:
+#                 return jsonify({'message': 'Perusahaan ' + nama_perusahaan + ' sedang tidak membuka lamaran'})
+#         else:
+#            response = make_response(jsonify({'message': 'Perusahaan ' + nama_perusahaan + 'tidak ditemukan'}) )
+#            response.status_code=404
+#            return response 
+#     except Exception as e:
+#         return jsonify({'message': 'an error has ocuured', 'error': str(e)})
+
 
 @app.route('/findbyCategory', methods=['GET'])
 def findbyCategory():
     data = request.get_json()
-    kategori = data.get('kategori')
+    nama_kategori = data.get('nama_kategori')
 
     try:
-        cursor.execute("SELECT id_category FROM kategori WHERE nama_kategori = %s", (kategori))
-        idCategory = cursor.fetchone()
-        if idCategory:
-            cursor.execute("SELECT * FROM pekerjaan WHERE id_kategori = %d", (idCategory))  #apa cuma posisi, gaji dan perusahaan berarti inner join
-            joblist = cursor.fetchall()
-            if joblist:
-                response = make_response(jsonify(joblist))
-                response.status_code=200
-                return response
-            else:
-                 return jsonify({'message': 'Pekerjaan dengan kategori ' + kategori + ' sedang tidak tersedia'})
+        cursor.execute("SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori\
+                            FROM pekerjaan INNER JOIN perusahaan\
+                            ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan\
+                            INNER JOIN kategori\
+                            ON pekerjaan.id_kategori = kategori.id_kategori\
+                            WHERE nama_kategori = %s", (nama_kategori,))
+        joblist = cursor.fetchall()
+        if joblist:
+            response = make_response(jsonify(joblist))
+            response.status_code=200
+            return response
         else:
-            response = make_response(jsonify({'message': 'Kategori ' + kategori + 'tidak ditemukan'}) )
+            response = make_response(jsonify({'message': 'Pekerjaan kategori ' + nama_kategori + ' sedang tidak tersedia'}))
             response.status_code=404
-            return response 
+            return response
+        
     except Exception as e:
-        return jsonify({'message': 'an error has ocuured', 'error': str(e)})
+        response = make_response(jsonify({'message': 'an error has ocuured', 'error': str(e)}))
+        response.status_code=500
+        return response
+# def findbyCategory():
+#     data = request.get_json()
+#     kategori = data.get('kategori')
+
+#     try:
+#         cursor.execute("SELECT id_category FROM kategori WHERE nama_kategori = %s", (kategori))
+#         idCategory = cursor.fetchone()
+#         if idCategory:
+#             cursor.execute("SELECT * FROM pekerjaan WHERE id_kategori = %d", (idCategory))  #apa cuma posisi, gaji dan perusahaan berarti inner join
+#             joblist = cursor.fetchall()
+#             if joblist:
+#                 response = make_response(jsonify(joblist))
+#                 response.status_code=200
+#                 return response
+#             else:
+#                  return jsonify({'message': 'Pekerjaan dengan kategori ' + kategori + ' sedang tidak tersedia'})
+#         else:
+#             response = make_response(jsonify({'message': 'Kategori ' + kategori + 'tidak ditemukan'}) )
+#             response.status_code=404
+#             return response 
+#     except Exception as e:
+#         return jsonify({'message': 'an error has ocuured', 'error': str(e)})
 
 @app.route('/getJobDetail', methods = ['GET'])
 def getJobDetail():
@@ -181,8 +248,14 @@ def getJobDetail():
             response.status_code=404
             return response 
     except Exception as e: # ini dijadiin error code 500?
-        return jsonify({'message': 'an error has ocuured', 'error': str(e)})
+        response = make_response(jsonify({'message': 'an error has ocuured', 'error': str(e)}))
+        response.status_code=500
+        return response
+    
 
+
+
+## Run The App
 if __name__ == '__main__':
     app.run(debug=True)
 

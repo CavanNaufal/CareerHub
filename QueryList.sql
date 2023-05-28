@@ -19,7 +19,7 @@ CREATE TABLE kategori(
 );
 
 CREATE TABLE pekerjaan (
-    id_pekerjaan serial PRIMARY KEY,
+    id_pekerjaan SERIAL PRIMARY KEY,
     id_perusahaan INTEGER REFERENCES perusahaan(id_perusahaan),
     id_kategori INTEGER REFERENCES kategori(id_kategori),
     posisi text NOT NULL,
@@ -27,6 +27,13 @@ CREATE TABLE pekerjaan (
     kualifikasi text NOT NULL,
     gaji bigint NOT NULL
 );
+
+INSERT INTO pekerjaan VALUES(DEFAULT,1,1,'DevOps Engineer','','2 tahun pengalaman',100000),
+                            (DEFAULT,1,1,'Embedded System Engineer','','2 tahun pengalaman',100000),
+                            (DEFAULT,1,1,'Data Scientist','','2 tahun pengalaman',100000),
+                            (DEFAULT,1,1,'System Admin','','2 tahun pengalaman',50000),
+                            (DEFAULT,1,1,'Cybersecurity Architect','','2 tahun pengalaman',100000);
+INSERT INTO pekerjaan VALUES(DEFAULT,2,1,'AI Engineeer','','S2',75000);
 
 CREATE TABLE lamaran(
     id_lamaran SERIAL PRIMARY KEY,
@@ -45,21 +52,30 @@ CREATE TABLE ulasan(
 );
 
 
-'SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori
+SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori
 FROM pekerjaan INNER JOIN perusahaan
 ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan
 INNER JOIN kategori 
 ON pekerjaan.id_kategori = kategori.id_kategori
-WHERE nama_perusahaan = %s, (nama_perusahaan)'
+WHERE nama_perusahaan = 'IBM';
 
-'SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori
+SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori
 FROM pekerjaan INNER JOIN perusahaan
 ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan
 INNER JOIN kategori 
 ON pekerjaan.id_kategori = kategori.id_kategori
-WHERE nama_kategori = %s, (nama_kategori)'
+WHERE nama_kategori = 'teknologi';
+
+SELECT pekerjaan.posisi,pekerjaan.gaji,perusahaan.nama_perusahaan,kategori.nama_kategori
+FROM pekerjaan INNER JOIN perusahaan
+ON pekerjaan.id_perusahaan = perusahaan.id_perusahaan
+INNER JOIN kategori 
+ON pekerjaan.id_kategori = kategori.id_kategori
+WHERE pekerjaan.posisi = 'DevOps Engineer';
 
 
+
+INSERT INTO kategori VALUES (DEFAULT,'teknologi'),(DEFAULT,'finance'),(DEFAULT,'manufacture');
 
 
 
