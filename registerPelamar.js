@@ -28,7 +28,14 @@ document.getElementById("registrationPelamar").addEventListener("submit", functi
       },
       body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+      if(response.status=200){
+        window.location.href = loginPelamar.html;
+      }
+      else{
+        throw new Error("HTTP status code: "+response.status)
+      }
+    })
     .then(data => {
       console.log(data); // Handle response from the server
       // Reset form fields
