@@ -18,18 +18,19 @@ cursor = conn.cursor()
 #Login dan register pelamar
 @app.route('/registerPelamar', methods=['POST'])
 def register():
-    headers = {'Content-Type':'application/json'}
+    #headers = {'Content-Type':'application/json'}
     data = request.get_json()
     nama_pelamar = data.get('nama_pelamar')
     alamat_pelamar = data.get('alamat_pelamar')
+    email_pelamar = data.get('email_pelamar')
     password = data.get('password')
     pengalaman = data.get('pengalaman')
     pendidikan = data.get('pendidikan')
 
     try:
         # Memasukkan data pengguna baru ke dalam database
-        cursor.execute("INSERT INTO pelamar VALUES(DEFAULT, %s,%s, %s, %s, %s)",
-                       (nama_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
+        cursor.execute("INSERT INTO pelamar VALUES(DEFAULT,%s,%s,%s,%s,%s,%s)",
+                       (nama_pelamar,email_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
         
         conn.commit()  #melakukan update database 
         return jsonify({'message': 'Registration successful'})
@@ -43,13 +44,13 @@ def register():
 @app.route('/loginPelamar', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data.get('nama_pelamar')
+    email = data.get('email_pelamar')
     password = data.get('password')
 
     try:
         # Mengecek apakah pengguna dengan username dan password yang diberikan ada dalam database
-        cursor.execute("SELECT * FROM pelamar WHERE nama_pelamar = %s AND password = %s",
-                       (username, password))
+        cursor.execute("SELECT * FROM pelamar WHERE email_pelamar = %s AND password = %s",
+                       (email, password))
         user = cursor.fetchone()
 
         if user:

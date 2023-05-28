@@ -1,11 +1,14 @@
  CREATE TABLE pelamar(
     id_pelamar SERIAL PRIMARY KEY,
     nama_pelamar text NOT NULL,
+    email_pelamar text NOT NULL,
     password text NOT NULL,
     alamat_pelamar text NOT NULL,
     pengalaman text NOT NULL,
     pendidikan text NOT NULL);
 
+
+INSERT INTO pelamar VALUES(DEFAULT,)
 CREATE TABLE perusahaan(
     id_perusahaan SERIAL PRIMARY KEY,
     nama_perusahaan text UNIQUE NOT NULL,
