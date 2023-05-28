@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 import psycopg2
 
 app = Flask(__name__)
-
+CORS(app)
 # Konfigurasi koneksi database, nanti diganti
 conn = psycopg2.connect(
     host="ep-sweet-tree-815718.ap-southeast-1.aws.neon.tech",  #neondb gw
@@ -14,31 +15,40 @@ conn = psycopg2.connect(
 )
 cursor = conn.cursor()
 
-
+@app.route('/',methods=['GET'])
+def hello():
+    response = make_response(jsonify({'message': 'Hello World'}))
+    response.status_code=200
+    return response
 #Login dan register pelamar
 @app.route('/registerPelamar', methods=['POST'])
 def register():
+    if request.method == 'POST':
     #headers = {'Content-Type':'application/json'}
-    data = request.get_json()
-    nama_pelamar = data.get('nama_pelamar')
-    alamat_pelamar = data.get('alamat_pelamar')
-    email_pelamar = data.get('email_pelamar')
-    password = data.get('password')
-    pengalaman = data.get('pengalaman')
-    pendidikan = data.get('pendidikan')
-
-    try:
+        data = request.get_json()
+        nama_pelamar = data.get('nama_pelamar')
+        alamat_pelamar = data.get('alamat_pelamar')
+        email_pelamar = data.get('email_pelamar')
+        password = data.get('password')
+        pengalaman = data.get('pengalaman')
+        pendidikan = data.get('pendidikan')
+    
+        try:
         # Memasukkan data pengguna baru ke dalam database
-        cursor.execute("INSERT INTO pelamar VALUES(DEFAULT,%s,%s,%s,%s,%s,%s)",
-                       (nama_pelamar,email_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
+            cursor.execute("INSERT INTO pelamar VALUES(DEFAULT,%s,%s,%s,%s,%s,%s)",
+                            (nama_pelamar,email_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
         
-        conn.commit()  #melakukan update database 
-        return jsonify({'message': 'Registration successful'})
+            conn.commit()  #melakukan update database 
+            return jsonify({'message': 'Registration successful'})
     # except psycopg2.IntegrityError as e:
     #     conn.rollback()
     #     return jsonify({'message': 'Username or email already exists'})
-    except Exception as e:
-        return jsonify({'message': 'Registration failed', 'error': str(e)})
+        except Exception as e:
+            return jsonify({'message': 'Registration failed', 'error': str(e)})
+    else:
+        response=make_response(jsonify({'message':'method not allowed'}))
+        response.status_code=405
+        return response
 
 
 @app.route('/loginPelamar', methods=['POST'])
@@ -46,15 +56,19 @@ def login():
     data = request.get_json()
     email = data.get('email_pelamar')
     password = data.get('password')
-
+    #print(email)
     try:
         # Mengecek apakah pengguna dengan username dan password yang diberikan ada dalam database
         cursor.execute("SELECT * FROM pelamar WHERE email_pelamar = %s AND password = %s",
                        (email, password))
+        print(email)
         user = cursor.fetchone()
 
         if user:
-            return jsonify({'message': 'Login successful'})
+            dictio = {'message':'Login Successful','success':True}
+            response = make_response(jsonify(dictio))
+            response.status_code=200
+            return response
         else:
             return jsonify({'message': 'Invalid username or password'})
     except Exception as e:
