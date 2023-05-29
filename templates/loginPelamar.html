@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Login Page</title>
-  <link rel="stylesheet" type="text/css" href="registerPelamar.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
 </head>
 <body>
   <h1>Login Form</h1>
@@ -14,6 +14,6 @@
     <input type="password" id="pswdLoginPelamar" name="password" required>
     <button type="submit">Login</button>
   </form>
-  <script src="loginPelamar.js"></script>
+  <script src="static/loginPelamar.js"></script>
 </body>
 </html>

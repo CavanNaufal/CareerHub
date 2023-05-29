@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Responsive Registration Form </title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form id="index" action="/registerPelamar" method="post">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" id="name" placeholder="Enter your name" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Address</span>
+            <input type="text" id="alamat" placeholder="Enter your address" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Experience</span>
+            <input type="text" id="pengalaman" placeholder="Enter your experience" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" id="password" placeholder="Enter your password" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Education</span>
+            <input type="text" id="pendidikan"placeholder="Enter your education" required>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+      <script src="static/registerPelamar.js"></script>
+    </div>
+  </div>
+</body>
+</html>

@@ -2,11 +2,11 @@
 <html>
 <head>
   <title>Form Registrasi</title>
-  <link rel="stylesheet" type="text/css" href="registerPelamar.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='registerPelamar.css')}}">
 </head>
 <body>
   <h1>Form Registrasi</h1>
-  <form id="registrationPelamar" action="loginPelamar.html" method="post">
+  <form id="registrationPelamar" action="/registerPelamar" method="post">
     <label for="name">Nama:</label>
     <input type="text" id="name" name="name" required>
     <br>
@@ -26,6 +26,6 @@
     <input type="text" id="pendidikan" name="pendidikan" required>
     <button type="submit">Daftar</button>
   </form>
-  <script src="registerPelamar.js"></script>
+  <script src="static/registerPelamar.js"></script>
 </body>
 </html>

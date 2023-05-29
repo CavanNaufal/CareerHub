@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 from flask_cors import CORS
 import psycopg2
 
@@ -20,36 +20,36 @@ def hello():
     response = make_response(jsonify({'message': 'Hello World'}))
     response.status_code=200
     return response
+    
+
+@app.route('/registerPelamar', methods=['GET'])
+def show_registration_form():
+    return render_template('index.html')
+
 #Login dan register pelamar
 @app.route('/registerPelamar', methods=['POST'])
 def register():
-    if request.method == 'POST':
-    #headers = {'Content-Type':'application/json'}
-        data = request.get_json()
-        nama_pelamar = data.get('nama_pelamar')
-        alamat_pelamar = data.get('alamat_pelamar')
-        email_pelamar = data.get('email_pelamar')
-        password = data.get('password')
-        pengalaman = data.get('pengalaman')
-        pendidikan = data.get('pendidikan')
-    
-        try:
-        # Memasukkan data pengguna baru ke dalam database
-            cursor.execute("INSERT INTO pelamar VALUES(DEFAULT,%s,%s,%s,%s,%s,%s)",
-                            (nama_pelamar,email_pelamar,password, alamat_pelamar, pengalaman,pendidikan))
-        
-            conn.commit()  #melakukan update database 
-            return jsonify({'message': 'Registration successful'})
-    # except psycopg2.IntegrityError as e:
-    #     conn.rollback()
-    #     return jsonify({'message': 'Username or email already exists'})
-        except Exception as e:
-            return jsonify({'message': 'Registration failed', 'error': str(e)})
-    else:
-        response=make_response(jsonify({'message':'method not allowed'}))
-        response.status_code=405
-        return response
+    data = request.get_json()
+    nama_pelamar = data.get('nama_pelamar')
+    alamat_pelamar = data.get('alamat_pelamar')
+    email_pelamar = data.get('email_pelamar')
+    password = data.get('password')
+    pengalaman = data.get('pengalaman')
+    pendidikan = data.get('pendidikan')
 
+    try:
+        # Memasukkan data pengguna baru ke dalam database
+        cursor.execute("INSERT INTO pelamar VALUES(DEFAULT,%s,%s,%s,%s,%s,%s)",
+                        (nama_pelamar, email_pelamar, password, alamat_pelamar, pengalaman, pendidikan))
+
+        conn.commit()  # Melakukan update database
+        return jsonify({'message': 'Registration successful'})
+    except Exception as e:
+        return jsonify({'message': 'Registration failed', 'error': str(e)})
+
+@app.route('/loginPelamar', methods=['GET'])
+def show_login_form():
+    return render_template('loginPelamar.html')
 
 @app.route('/loginPelamar', methods=['POST'])
 def login():
@@ -60,7 +60,7 @@ def login():
     try:
         # Mengecek apakah pengguna dengan username dan password yang diberikan ada dalam database
         cursor.execute("SELECT * FROM pelamar WHERE email_pelamar = %s AND password = %s",
-                       (email, password))
+                        (email, password))
         print(email)
         user = cursor.fetchone()
 
