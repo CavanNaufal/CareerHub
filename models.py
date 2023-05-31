@@ -12,7 +12,6 @@ def listify(jobList:list):
         res.append(item_dict)
     return res
 
-
 #def listing
 def listing(letterList:list):
     res=[]
@@ -29,21 +28,29 @@ def listing(letterList:list):
         res.append(item_dict)
     return res
 
-#def userProfile(response)
+def userProfile(user:object):
+    dictio={
+        'id_pelamar':user[0],
+        'nama_pelamar':user[1],
+        'email_pelamar':user[2],
+        'alamat_pelamar':user[3],
+        'pengalaman' :user[4],
+        'pendidikan' :user[5],
+        'success' : True
+    }
+    return dictio
 
 #def companyProfile(response)
-
-
-
-# dictio = {
-#                 'id_pekerjaan': jobDetails[0],
-#                 'id_perusahaan': jobDetails[1],
-#                 'id_kategori': jobDetails[2],
-#                 'posisi': jobDetails[3],
-#                 'deskripsi': jobDetails[4],
-#                 'kualifikasi': jobDetails[5],
-#                 'gaji': jobDetails[6]
-#             }
+def companyProfile(company:object):
+    dictio={
+        'id_perusahaan':company[0],
+        'nama_perusahaan':company[1],
+        'email_perusahaan':company[2],
+        'deskripsi_perusahaan':company[3],
+        'alamat_perusahaan' :company[4],
+        'success' : True
+    }
+    return dictio
 
 
 ## TODO mikir tentang field yang akan ditampilkan di detail pekerjaan, detail lamaran dan detail ulasan

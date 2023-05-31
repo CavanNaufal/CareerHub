@@ -40,6 +40,15 @@ def show_register_page():
 def show_login_page():
     return render_template('loginPelamar.html')
 
+@app.route('/getJobDetail', methods = ['GET'])
+def show_jobdetail_page():
+    return render_template('job-detail.html')
+
+@app.route('/getJobList', methods = ['GET'])
+def show_joblist_page():
+    return render_template('job-list.html')
+
+
 def checkColumn(columnName:str,tableName:str):
     query = f"SELECT column_name FROM information_schema.columns WHERE table_name = '{tableName}'"
     cursor.execute(query)
@@ -92,17 +101,16 @@ def login():
     #print(email)
     try:
         # Mengecek apakah pengguna dengan username dan password yang diberikan ada dalam database
-        cursor.execute("SELECT * FROM pelamar WHERE email_pelamar = %s AND password = %s",
-                        (email, password))
+        cursor.execute("SELECT id_pelamar,nama_pelamar,email_pelamar,alamat_pelamar, pengalaman,pendidikan\
+                        FROM pelamar WHERE email_pelamar = %s AND password = %s",(email, password))
         print(email)
         user = cursor.fetchone()
 
         if user:
-            # dictio = dict(user)
+            dictio = userProfile(user)
             # dictio.update({'message':'Login Successful','success':True})
-            response = make_response(jsonify(user))
+            response = make_response(jsonify(dictio))
             response.status_code=200
-            print(user)
             return response
         else:
             dictio = {'message':'Invalid username or password','success':False}
@@ -149,11 +157,12 @@ def loginPerusahaan():
     pswd = data.get('pswd_perusahaan')
 
     try:
-        cursor.execute("SELECT * FROM perusahaan WHERE nama_perusahaan = %s AND pswd_perusahaan = %s", (nama,pswd))
+        cursor.execute("SELECT id_perusahaan,nama_perusahaan,email_perusahaan, deskripsi_perusahaan, alamat_perusahaan\
+                        FROM perusahaan WHERE nama_perusahaan = %s AND pswd_perusahaan = %s", (nama,pswd))
         company = cursor.fetchone()
         
         if company:
-            #dictio=Convert(company,is_success)
+            dictio=companyProfile(company)
             # dictio.update({'message':'Login Company Successful','success':True})
             response = make_response(jsonify(dictio))
             response.status_code=200
@@ -224,7 +233,7 @@ def editPerusahaan():
         return response
 
 #nanti malem di test
-@app.route('/searchJob',methods=['GET'])
+@app.route('/',methods=['POST'])
 def searchJob():
     data = request.get_json()
     keySearch= data.get('key')   
@@ -581,9 +590,6 @@ def removeRating():
         response = make_response(jsonify({'message': 'an error has occured', 'error': str(e),'success':False}))
         response.status_code=500
         return response
-
-
-
 
 ## Run The App
 if __name__ == '__main__':

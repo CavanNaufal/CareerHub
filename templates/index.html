@@ -58,8 +58,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="job-list.html" class="dropdown-item">Job List</a>
-                            <a href="job-detail.html" class="dropdown-item">Job Detail</a>
+                            <a href="http://127.0.0.1:5000/getJobList" class="dropdown-item">Job List</a>
+                            <a href="http://127.0.0.1:5000/getJobDetail" class="dropdown-item">Job Detail</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -125,14 +125,14 @@
                     <div class="col-md-10">
                         <div class="row g-2">
                             <div class="col-md-4">
-                                <input type="text" class="form-control border-0" placeholder="Keyword" />
+                                <input type="text" id="searchData" class="form-control border-0" placeholder="Keyword" />
                             </div>
                             <div class="col-md-4">
-                                <select class="form-select border-0">
+                                <select class="form-select border-0" id="searchKey">
                                     <option selected>Category</option>
-                                    <option value="1">Category 1</option>
-                                    <option value="2">Category 2</option>
-                                    <option value="3">Category 3</option>
+                                    <option  value="posisi">Posisi</option>
+                                    <option  value="nama_perusahaan">Perusahaan</option>
+                                    <option  value="nama_kategori">Kategori</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -146,7 +146,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Search</button>
+                        <button id="searchButton" class="btn btn-dark border-0 w-100">Search</button>
                     </div>
                 </div>
             </div>
@@ -278,7 +278,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div id="jobList" class="tab-pane fade show p-0 active">
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
@@ -728,6 +728,7 @@
     <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="/static/js/searchJob.js"></script>
     <script src="/static/js/main.js"></script>
 </body>
 

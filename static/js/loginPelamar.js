@@ -30,7 +30,7 @@ function login() {
   })
   .then(data => {
     // Tangani respons dari backend
-    if (data.id_pelamar!='0') {
+    if (data.success) {
       console.log(data);
       // Simpan respons ke localStorage
       //localStorage.setItem("loginData", JSON.stringify(data));
