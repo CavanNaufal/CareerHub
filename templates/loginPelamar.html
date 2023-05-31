@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login Page</title>
-  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+  <!-- <title>Login Page</title> -->
+  <link rel="stylesheet" type="text/css" href="/static/css/style3.css">
 </head>
 <body>
-  <h1>Login Form</h1>
-  <form id="loginPelamar" action="#" method="post">
-    <label for="email">Email:</label>
-    <input type="email" id="emailLoginPelamar" name="email" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="pswdLoginPelamar" name="password" required>
-    <button type="submit">Login</button>
-  </form>
-  <script src="static/loginPelamar.js"></script>
+  <div class="container">
+    <div class="title">Login</div>
+    <form id="loginPelamar" action="/loginPelamar" method="post">
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Email</span>
+          <input type="email" id="emailLoginPelamar" placeholder="Enter your email" required>
+        </div>
+        <div class="input-box">
+          <span class="details">Password</span>
+          <input type="password" id="pswdLoginPelamar" placeholder="Enter your password" required>
+        </div>
+      </div>
+      <div class="button">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+  </div>
+
+  <script src="/static/js/loginPelamar.js"></script>
 </body>
 </html>

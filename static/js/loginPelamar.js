@@ -1,3 +1,7 @@
+function redirecttomain(){
+  window.location.href= "http://127.0.0.1:5000/";
+}
+
 function login() {
   var email = document.getElementById("emailLoginPelamar").value;
   var password = document.getElementById("pswdLoginPelamar").value;
@@ -15,12 +19,23 @@ function login() {
     },
     body: JSON.stringify(formData)
   })
-  .then(response => response.json())
+  .then(response => {
+    if(response.status=200){
+      console.log('OK')
+      return response.json();
+    }
+    else{
+      throw new Error("HTTP status code: "+response.status)
+    }
+  })
   .then(data => {
     // Tangani respons dari backend
-    if (data.success) {
-      console.log(data)
-      //redirecttoJobListPage
+    if (data.id_pelamar!='0') {
+      console.log(data);
+      // Simpan respons ke localStorage
+      //localStorage.setItem("loginData", JSON.stringify(data));
+      // Redirect ke halaman lain
+      redirecttomain();
     } else {
       // Jika login gagal, tampilkan pesan kesalahan
       alert(data.message);
@@ -37,3 +52,4 @@ document.getElementById("loginPelamar").addEventListener("submit", function(even
   event.preventDefault(); // Mencegah pengiriman formulir secara default
   login();
 });
+
