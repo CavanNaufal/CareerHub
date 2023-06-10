@@ -1,0 +1,112 @@
+.AddJob .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 15px;
+  }
+.AddJob .title::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 50px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #00B074, #FFFF);
+  }
+  .content form .row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  
+  form .row .col-12{
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+  }
+  form .col-12 span.details{
+    display: block;
+    font-weight: 500;
+  
+  }
+  .row .col-12 input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .row .col-12 textarea {
+    height: 100px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-details .input-box textarea {
+    resize: none; /* Menonaktifkan fungsi resize pada textarea */
+  }
+
+  .row .col-12 input:focus,
+  .row .col-12 input:valid,
+  .row .col-12 textarea,
+  .row .col-12{
+    border-color: #00B074;
+  }
+
+  .custom-border {
+    border: 1px solid #00B074;
+    border-radius: 5px;
+}
+
+
+form .button {
+  height: 10px;
+  margin: 35px 0 10px -8px;
+  text-align: center;
+}
+
+form .button input {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  height: 45px;
+  width: 100%;
+  max-width: 200px; /* Set a maximum width for the button */
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  background: linear-gradient(135deg, #00b074, #00b074);
+}
+
+form .button.short-width input {
+  max-width: 650px; /* Adjust the maximum width for smaller screens */
+}
+
+form .button input:hover {
+  background: linear-gradient(-135deg, #00b074, #00b074);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  form .button input {
+    max-width: 150px; /* Adjust the maximum width for smaller screens */
+  }
+}
+
+
+

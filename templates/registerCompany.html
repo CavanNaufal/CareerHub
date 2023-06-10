@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Responsive Registration Form</title>
+        <link rel="stylesheet" href="/static/css/style3.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="logo">CareerHub</div>
+            <ul class="menu-list">
+                <li><a href="http://127.0.0.1:5000/about">About</a></li>
+                <li><a href="http://127.0.0.1:5000/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="container">
+        <div class="title">Company Registration</div>
+        <div class="content">
+            <form id="index" action="/registerCompany" method="post">
+            <div class="user-details">
+                <div class="input-box">
+                <span class="details">Company Name</span>
+                <input type="text" id="name" placeholder="Enter your company name" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Email</span>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Password</span>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Address</span>
+                <input type="text" id="address" placeholder="Enter your address" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Description</span>
+                    <textarea id="description" placeholder="Enter company description" required></textarea>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Register">
+            </div>
+            </form>
+            <div class="message">Do you want to register as a user? <a href="http://127.0.0.1:5000/registerPelamar">Register as User</a></div>
+            <div class="message">Already have an account? <a href="http://127.0.0.1:5000/loginPelamar">Log in</a></div> <!-- Added message and link -->
+        </div>
+        </div>
+        <script src="static/js/registerCompany.js"></script>
+    </body>
+</html>

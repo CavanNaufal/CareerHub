@@ -29,7 +29,6 @@
     opacity: 1;
 }
 
-
 /*** Button ***/
 .btn {
     font-family: 'Inter', sans-serif;
@@ -322,7 +321,6 @@
     border-color: var(--primary);
 }
 
-
 /*** Footer ***/
 .footer .btn.btn-social {
     margin-right: 5px;
@@ -390,4 +388,30 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+#applicationForm {
+    display: block;
+}
+
+#applicationConfirmation {
+    display: none;
+}
+
+#deleteButton {
+    display: none;
+}
+
+#deleteLink {
+    display: none;
+}
+
+#applicationForm.hide,
+#deleteLink.show {
+    display: none;
+}
+
+#applicationConfirmation.show,
+#deleteButton.show {
+    display: block;
 }

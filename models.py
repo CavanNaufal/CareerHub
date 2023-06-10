@@ -1,3 +1,10 @@
+####models.py
+class Parse:
+    def __init__(self,success:bool,arr,msg):
+        self.success = success
+        self.payload = arr
+        self.message = msg
+
 def listify(jobList:list):
     res = []
     for item in jobList:
@@ -6,11 +13,11 @@ def listify(jobList:list):
             'posisi': item[1],
             'gaji': item[2],
             'nama_perusahaan': item[3],
-            'nama_kategori': item[4],
-            'success' : True
+            'nama_kategori': item[4]
         }
         res.append(item_dict)
-    return res
+    ret = Parse(True,res,"OK")
+    return ret
 
 #def listing
 def listing(letterList:list):
@@ -22,11 +29,11 @@ def listing(letterList:list):
             'nama_pelamar':item[2],
             'pengalaman' : item[3],
             'pendidikan' : item[4],
-            'tanggal_lamaran': item[5],
-            'success': True
+            'tanggal_lamaran': item[5]
         }
         res.append(item_dict)
-    return res
+    ret = Parse(True,res,"OK")
+    return ret
 
 def userProfile(user:object):
     dictio={
@@ -51,6 +58,3 @@ def companyProfile(company:object):
         'success' : True
     }
     return dictio
-
-
-## TODO mikir tentang field yang akan ditampilkan di detail pekerjaan, detail lamaran dan detail ulasan

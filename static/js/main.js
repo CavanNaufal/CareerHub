@@ -1,3 +1,45 @@
+document.getElementById("logoutButton").addEventListener("click",clearLocalStorage);
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(loadProfileName, 10); // Menunda eksekusi selama 1 detik (1000 milidetik)
+});
+
+
+
+function clearLocalStorage(){
+    if(localStorage.getItem("id_pelamar")){
+        localStorage.removeItem("id_pelamar")
+        localStorage.removeItem("nama_pelamar")
+        localStorage.removeItem("email_pelamar")
+        localStorage.removeItem("alamat_pelamar")
+        localStorage.removeItem("pengalaman")
+        localStorage.removeItem("pendidikan")
+        window.location.href = "http://127.0.0.1:5000/loginPelamar";
+    }
+    if(localStorage.getItem("id_perusahaan")){
+        localStorage.removeItem("id_perusahaan")
+        localStorage.removeItem("nama_perusahaan")
+        localStorage.removeItem("email_perusahaan")
+        localStorage.removeItem("deskripsi_perusahaan")
+        localStorage.removeItem("alamat_perusahaan")
+        window.location.href = "http://127.0.0.1:5000/loginPerusahaan";
+    }
+}
+
+function loadProfileName(){
+    var username=localStorage.getItem("nama_pelamar")
+    var companyUsername=localStorage.getItem("nama_perusahaan")
+    if(localStorage.getItem("id_pelamar")){
+        document.getElementById("username").textContent = username
+    }else if(localStorage.getItem("id_perusahaan")){
+        document.getElementById("username").textContent = companyUsername
+    }
+    else{
+        window.location.href="http://127.0.0.1:5000/loginPelamar";
+    }
+}
+
+
 (function ($) {
     "use strict";
 

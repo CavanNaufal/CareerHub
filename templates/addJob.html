@@ -30,6 +30,7 @@
     <!-- Template Stylesheet -->
     <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style2.css')}}"> -->
     <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="/static/css/addJob.css" rel="stylesheet">
 </head>
 
 <body>
@@ -45,7 +46,7 @@
 
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <a href="http://127.0.0.1:5000/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+            <a href="http://127.0.0.1:5000/company" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary">CareerHub</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -53,7 +54,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="http://127.0.0.1:5000/" class="nav-item nav-link active">Home</a>
+                    <a href="http://127.0.0.1:5000/company" class="nav-item nav-link active">Home</a>
                     <a href="http://127.0.0.1:5000/about" class="nav-item nav-link">About</a>
                     <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
@@ -74,7 +75,7 @@
                     <a href="http://127.0.0.1:5000/loginPelamar" id="logoutButton" class="nav-item nav-link" style="color: red;">Logout</a>
                     <a href="" id="username" class="nav-item nav-link" style="color: #00B074; text-decoration: underline;">user</a>
                 </div>
-                <!-- <a href="http://127.0.0.1:5000/addJob" id="postJob" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a> -->
+                <a href="http://127.0.0.1:5000/addJob" id="postJob" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>        
         <!-- Navbar End -->
@@ -83,12 +84,11 @@
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Category</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Post a Job</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Category</li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Post a Job</li>
                     </ol>
                 </nav>
             </div>
@@ -96,71 +96,59 @@
         <!-- Header End -->
 
 
-        <!-- Category Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                            <h6 class="mb-3">Marketing</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h6 class="mb-3">Customer Service</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h6 class="mb-3">Human Resource</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                            <h6 class="mb-3">Project Management</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-chart-line text-primary mb-4"></i>
-                            <h6 class="mb-3">Business Development</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                            <h6 class="mb-3">Sales & Communication</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>
-                            <h6 class="mb-3">Teaching & Education</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item rounded p-4" href="">
-                            <i class="fa fa-3x fa-drafting-compass text-primary mb-4"></i>
-                            <h6 class="mb-3">Design & Creative</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </a>
+       <!-- Job Detail Start -->
+       <div id ="addJob" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row gy-5 gx-4">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center mb-5">
+                        <!-- <img class="flex-shrink-0 img-fluid border rounded" src="/static/img/com-logo-2.jpg" alt="" style="width: 80px; height: 80px;"> -->
+                        <div class="text-start ps-4">
+                            <!-- <h3 id="posisi" class="mb-3">Post a Job</h3> Ini ganti ${data.posisi} -->
+                    <div class="AddJob">
+                        <div class="title">Add New Job</div>
+                        <form id="addjob" action="/addJob" method="post">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <label for="kategori" class="form-label">kategori</label>
+                                    <select id="kategori" class="form-select custom-border">
+                                        <option value="1">Teknologi</option>
+                                        <option value="2">Finance</option>
+                                        <option value="3">Manufacture</option>
+                                        <option value="4">Creative</option>
+                                        <option value="5">Services</option>
+                                        <option value="6">Healthcare</option>
+                                        <option value="7">Marketing</option>
+                                        <option value="8">Education</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <label for="gaji" class="form-label">Gaji</label>
+                                    <input type="text" class="form-control" id="gaji" name="gaji">
+                                </div>
+                                <div class="col-12 ">
+                                    <label for="posisi" class="form-label">Posisi</label>
+                                    <input type="text" class="form-control" id="posisi" name="posisi">
+                                </div>
+                                <div class="col-12">
+                                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                                    <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="kualifikasi" class="form-label">Kualifikasi</label>
+                                    <textarea class="form-control" id="kualifikasi" name="kualifikasi"></textarea>
+                                </div>
+                                <div class="button short-width">
+                                    <input type="submit" value="Submit">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Category End -->
+    </div>
+    <!-- Job Detail End -->
 
 
         <!-- Footer Start -->
@@ -232,6 +220,8 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+</div>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -242,7 +232,10 @@
     <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="/static/js/addJob.js"></script>
     <script src="/static/js/main.js"></script>
-</body>
+    
 
 </html>
+
+

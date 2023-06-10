@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins',sans-serif;
 }
-
-body {
+body{
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -75,23 +73,21 @@ body {
   }
 }
 
-
-.container {
-  max-width: 700px;
+.container{
+  max-width: 450px;
   width: 100%;
   background-color: #fff;
   padding: 25px 30px;
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
-
-.container .title {
+.container .title{
   font-size: 25px;
   font-weight: 500;
   position: relative;
+  margin-bottom: 15px;
 }
-
-.container .title::before {
+.container .title::before{
   content: "";
   position: absolute;
   left: 0;
@@ -102,24 +98,22 @@ body {
   background: linear-gradient(135deg, #00B074, #FFFF);
 }
 
-.content form .user-details {
+.content form .user-details{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0 12px 0;
 }
 
-form .user-details .input-box {
-  margin-bottom: 15px;
-  width: calc(100% / 2 - 20px);
+form .user-details .input-box{
+  margin-bottom: 10px;
+  width: calc(100% - 20px);
 }
-
-form .input-box span.details {
+form .input-box span.details{
   display: block;
   font-weight: 500;
-  margin-bottom: 5px;
-}
 
+}
 .user-details .input-box input{
   height: 45px;
   width: 100%;
@@ -131,37 +125,16 @@ form .input-box span.details {
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
-
-.user-details .input-box textarea {
-  height: 100px;
-  width: 214%;
-  outline: none;
-  font-size: 16px;
-  border-radius: 5px;
-  padding-left: 15px;
-  border: 1px solid #ccc;
-  border-bottom-width: 2px;
-  transition: all 0.3s ease;
-}
-
-.user-details .input-box textarea {
-  resize: none; /* Menonaktifkan fungsi resize pada textarea */
-}
-
 .user-details .input-box input:focus,
-.user-details .input-box input:valid,
-.user-details .input-box textarea:focus,
-.user-details .input-box textarea:valid {
+.user-details .input-box input:valid{
   border-color: #00B074;
 }
 
-form .button {
+form .button{
   height: 20px;
-  margin-top: 0px;
-  margin-bottom: 35px;
+  margin: 35px 0
 }
-
-form .button input {
+form .button input{
   font-size: 15px;
   font-weight: 500;
   color: #FFFF;
@@ -175,43 +148,39 @@ form .button input {
   transition: .3s ease-in-out;
   background: linear-gradient(135deg, #00B074, #00B074);
 }
+form .button input:hover{
+/* transform: scale(0.99); */
 
-form .button input:hover {
-  background: linear-gradient(-135deg, #00B074, #00B074);
+background: linear-gradient(-135deg, #00B074, #00B074);
 }
-
-@media(max-width: 584px) {
-  .container {
-    max-width: 100%;
-  }
-  
-  form .user-details .input-box {
+@media(max-width: 584px){
+.container{
+max-width: 100%;
+}
+form .user-details .input-box{
     margin-bottom: 15px;
     width: 100%;
   }
-  
-  form .category {
+  form .category{
     width: 100%;
   }
-  
-  .content form .user-details {
+  .content form .user-details{
     max-height: 300px;
     overflow-y: scroll;
   }
-  
-  .user-details::-webkit-scrollbar {
+  .user-details::-webkit-scrollbar{
     width: 5px;
   }
-}
-
-@media(max-width: 459px) {
-  .container .content .category {
+  }
+  @media(max-width: 459px){
+  .container .content .category{
     flex-direction: column;
   }
 }
 
 .message {
   text-align: center;
+  margin-top: 0px;
 }
 
 .message a {
