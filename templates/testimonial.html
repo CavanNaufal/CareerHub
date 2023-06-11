@@ -29,6 +29,30 @@
 
     <!-- Template Stylesheet -->
     <link href="/static/css/styles.css" rel="stylesheet">
+    <!-- <link href="/static/css/addJob.css" rel="stylesheet"> -->
+
+    <style>
+        .row .col-12 input:focus,
+        .row .col-12 input:valid,
+        .row .col-12 textarea,
+        .row .col-12 select,
+        .row .col-12 {
+            border-color: #00B074;
+        }
+    
+        .custom-border {
+            border: 1px solid #00B074;
+            border-radius: 5px;
+        }
+    
+        select#rating:focus,
+        select#rating:valid {
+            border-color: #00B074;
+            outline: none;
+            box-shadow: none;
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -150,7 +174,42 @@
             </div>
         </div>
         <!-- Testimonial End -->
-
+        
+        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+            <h4 class="mb-4 text-center mb-5" id="applyJobcontent">Add Testimonial</h4>
+            <div class="row g-3 justify-content-center">
+                <div class="col-12 col-md-6">
+                    <div class="text-center">
+                        <label style="font-weight: bold;">Deskripsi Ulasan</label>
+                    </div>
+                    <input type="text" id="ulasan" class="form-control" placeholder="Input Here">
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="text-center">
+                        <label style="font-weight: bold;">Rating</label>
+                    </div>
+                    <select class="form-select custom-border text-center" id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <button id="apply" class="btn btn-primary w-50" type="click" onclick="applyJob()">Apply Now</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

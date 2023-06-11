@@ -35,6 +35,18 @@ def listing(letterList:list):
     ret = Parse(True,res,"OK")
     return ret
 
+def testify(testimonyList:str):
+    res=[]
+    for item in testimonyList:
+        item_dict={
+            'nama_pelamar':item[0],
+            'rating':item[1],
+            'komentar':item[2]
+        }
+        res.append(item_dict)
+    ret=Parse(True,res,"OK")
+    return ret
+
 def userProfile(user:object):
     dictio={
         'id_pelamar':user[0],

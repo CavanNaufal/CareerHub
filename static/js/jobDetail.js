@@ -1,35 +1,27 @@
-// document.getElementById("applyButton").addEventListener("click",function(event){
-//   event.stopPropagation();
-//   applyJob()
-// });
-
-// document.getElementById("applyButton").addEventListener("click", function(event) {
-//   event.preventDefault(); // Prevent default click behavior
-//   applyJob()
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
+ 
   displayJobDetail();
-
-  setTimeout(function() {
-    document.getElementById("delete").style.visibility = "hidden";
-  }, 1000); // Menunda pengaturan visibilitas selama 1 detik (1000 milidetik)
-
-  document.getElementById("apply").addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent default click behavior
-  
+  if(localStorage.getItem("tanggal")){
     setTimeout(function() {
-      applyJob();
-    }, 1000); // Menunda eksekusi fungsi applyJob selama 1 detik (1000 milidetik)
-  });
-
-  document.getElementById("delete").addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent default click behavior
-  
+      document.getElementById("applyJobcontent").textContent="Delete";
+      document.getElementById("delete").style.display = "block";
+      document.getElementById("apply").style.display="none";
+      document.getElementById("tanggal").style.display="none";
+      document.getElementById("filename").style.display="none";
+      document.getElementById("deleteContent").style.display="block";
+    }, 70); 
+  }
+  else{
     setTimeout(function() {
-      deleteApply();
-    }, 1000); // Menunda eksekusi fungsi deleteApply selama 1 detik (1000 milidetik)
-  });
+      document.getElementById("applyJobcontent").textContent="Apply For The Job";
+      document.getElementById("delete").style.display = "none";
+      document.getElementById("apply").style.display="block";
+      document.getElementById("tanggal").style.display="block";
+      document.getElementById("filename").style.display="block";
+      document.getElementById("deleteContent").style.display="none";
+    }, 70);
+  }
+   
 });
 
 //save As jobDetail.js
@@ -58,11 +50,6 @@ function displayJobDetail() {
         jobDetailDisplay.className = "container-xxl py-5 wow fadeInUp";
         jobDetailDisplay.innerHTML = "";
         if (data.success) {
-          console.log("success");
-        //   var jobDetailDisplay = document.getElementById("jobDetail");
-        //   jobDetailDisplay.className = "container-xxl py-5 wow fadeInUp";
-        //   jobDetailDisplay.innerHTML = "";
-  
           // Memasukkan field posisi, deskripsi, gaji, kualifikasi, nama_perusahaan, kategori ke HTML
           jobDetailDisplay.innerHTML = `
             <div class="container">
@@ -82,34 +69,28 @@ function displayJobDetail() {
                     <h4 class="mb-3">Job description</h4>
                     <p>${data.deskripsi_pekerjaan}</p>
   
-                    <h4 class="mb-3">Responsibility</h4>
-                    <p>lorem</p>
-  
                     <h4 class="mb-3">Qualifications</h4>
                     <p>${data.kualifikasi}</p>
                   </div>
   
-                  <div class="">
-                        <h4 class="mb-4">Apply For The Job</h4>
-                    
+                  <div class="mb-5">
+                        <h4 class="mb-4" id="applyJobcontent">Apply For The Job</h4>
+                        <p id="deleteContent">Anda telah mengirim lamaran pada tanggal ${localStorage.getItem("tanggal")} dengan file ${localStorage.getItem("filename")}.</p>
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                  <input type="text" id="tanggal" class="form-control" placeholder="Tanggal">
+                                    <input type="text" id="tanggal" class="form-control" placeholder="Tanggal">
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <input type="text" id="filename" class="form-control" placeholder="Filename">
                                 </div>
-                                
                                 <div class="col-12">
-                                    <button id="delete" class="btn btn-primary w-100" type="click">Delete</button>
+                                    <button id="apply" class="btn btn-primary w-100" type="click" onclick = "applyJob()">Apply Now</button>
+                                </div>
+                                <div class="col-12">
+                                    <button id="delete" class="btn btn-primary w-100" type="click" onclick = "deleteApply()" >Delete</button>
                                 </div>
                             </div>
-                
-                        
                     </div>
-                    <div>
-							<button id="apply" type="click" class="btn btn-primary">Update</button>
-						      </div>
                 </div>
   
                 <div class="col-lg-4">
@@ -168,11 +149,18 @@ function displayJobDetail() {
     .then(response => response.json())
     .then(data=>{
         if(data.success){
-            document.getElementById("applyJobButton").style.visibility="hidden";
-            //unhide tombol edit dan delete?
-            //document.getElementById("edit").style.visibility="visible";  //untuk style.displat: none untuk hide, block untuk unhide
-            document.getElementById("delete").style.visibility="visible";
+            localStorage.setItem("tanggal",tanggal)
+            localStorage.setItem("filename",filename)
+
+            document.getElementById("apply").style.display="none";
+            document.getElementById("delete").style.display="block";
+            document.getElementById("tanggal").style.display="none";
+            document.getElementById("filename").style.display="none";
+            document.getElementById("deleteContent").style.display="block";
+            document.getElementById("applyJobcontent").textContent="Delete";   //ini di applJob() di bagian data.success
             alert("Lamaran ditambahkan")
+
+            location.reload();
         }
         else{
             alert(data.message)
@@ -201,10 +189,15 @@ function deleteApply(){
     .then(response=>response.json())
     .then(data=>{
         if(data.success){
-            document.getElementById("applyJobButton").style.visibility="visible";
-            //unhide tombol edit dan delete?
-            //document.getElementById("edit").style.visibility="visible";  //untuk style.displat: none untuk hide, block untuk unhide
-            document.getElementById("delete").style.visibility="hidden";
+            document.getElementById("apply").style.display="block";
+            document.getElementById("delete").style.display="none";
+            document.getElementById("apply").style.display="block";
+            document.getElementById("tanggal").style.display="block";
+            document.getElementById("filename").style.display="block";
+            document.getElementById("deleteContent").style.display="none";
+            document.getElementById("applyJobcontent").textContent="Apply For The Job";  //ini di bagian deleteApply di bagian if data.success
+            localStorage.removeItem("tanggal")
+            localStorage.removeItem("filename")
             alert("Lamaran dihapus")
         }
         else{

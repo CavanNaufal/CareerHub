@@ -71,6 +71,7 @@
   .row .col-12 input:focus,
   .row .col-12 input:valid,
   .row .col-12 textarea,
+  .row .col-12 select,
   .row .col-12{
     border-color: #00B074;
   }

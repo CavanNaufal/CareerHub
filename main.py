@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response, render_template
 from flask_scss import Scss
 import psycopg2
-from models import listify, listing, userProfile, companyProfile
+from models import listify, listing, testify, userProfile, companyProfile
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -408,10 +408,10 @@ def addLetter():
     id_pelamar = data.get('id_pelamar')
     tanggal = data.get('tanggal') #ttransform tanggal
     filename = data.get('filename')
-    string = "letters/"+id_pekerjaan+id_pelamar+filename
+    
     query = f"INSERT INTO lamaran VALUES(DEFAULT,%s,%s,%s,'0',%s)"
     try:
-        cursor.execute(query,(id_pekerjaan,id_pelamar,tanggal,string))
+        cursor.execute(query,(id_pekerjaan,id_pelamar,tanggal,filename))
         conn.commit()
         dictio = {'message':'lamaran telah ditambahkan', 'success':True}
         response = make_response(jsonify(dictio))
@@ -586,13 +586,12 @@ def letterDetail():
 @app.route('/addRating',methods=['POST'])
 def addRating():
     data = request.get_json()
-    id_pekerjaan = data.get('id_pekerjaan')
     id_pelamar = data.get('id_pelamar')
     rating = data.get('rating')
     komentar = data.get('komentar')
 
     try:
-        cursor.execute("INSERT INTO ulasan VALUES(DEFAULT,%s,%s,%s,%s)",(id_pekerjaan,id_pelamar,rating,komentar))
+        cursor.execute("INSERT INTO ulasan VALUES(DEFAULT,%s,%s,%s)",(id_pelamar,rating,komentar))
         conn.commit()
         dictio = {'message':'ulasan telah ditambahkan', 'success':True}
         response = make_response(jsonify(dictio))
@@ -601,6 +600,29 @@ def addRating():
     except Exception as e: # ini dijadiin error code 500?
         print(str(e))
         response = make_response(jsonify({'message': 'an error has occured', 'error': str(e),'success':False}))
+        response.status_code=500
+        return response
+
+@app.route('/getRating',methods=['GET'])
+def getRating():    
+    try:
+        cursor.execute("SELECT pelamar.nama_pelamar,ulasan.rating,ulasan.komentar FROM ulasan\
+                       INNER JOIN pelamar ON ulasan.id_pelamar=pelamar.id_pelamar \
+                       ORDER BY ulasan.rating LIMIT 4")
+        testiList=cursor.fetchall()
+        if testiList:
+            dictio = testify(testiList)
+            response = make_response(jsonify(dictio.__dict__))
+            response.status_code=200
+            return response
+        else:
+            dictio = {'message':'Testimony not found','success':False}
+            response = make_response(jsonify(dictio))
+            response.status_code=404
+            return response
+    except Exception as e:
+        print(str(e))
+        response = make_response(jsonify({'message': 'an error has ocuured', 'error': str(e), 'success': False}))
         response.status_code=500
         return response
 
