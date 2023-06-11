@@ -32,7 +32,8 @@ function addJob(event) {
     .then((data) => {
       if (data.success) {
         alert(data.message);
-        // window.location.href = "http://127.0.0.1:5000/company";
+  
+        window.location.href = "http://127.0.0.1:5000/company";
       } else {
         alert(data.message);
       }

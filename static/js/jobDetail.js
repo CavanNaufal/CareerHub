@@ -1,15 +1,38 @@
+// document.getElementById("applyButton").addEventListener("click",function(event){
+//   event.stopPropagation();
+//   applyJob()
+// });
+
+// document.getElementById("applyButton").addEventListener("click", function(event) {
+//   event.preventDefault(); // Prevent default click behavior
+//   applyJob()
+// });
+
 document.addEventListener('DOMContentLoaded', function() {
   displayJobDetail();
 
   setTimeout(function() {
     document.getElementById("delete").style.visibility = "hidden";
-  }, 100); // Menunda pengaturan visibilitas selama 1 detik (1000 milidetik)
+  }, 1000); // Menunda pengaturan visibilitas selama 1 detik (1000 milidetik)
+
+  document.getElementById("apply").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent default click behavior
+  
+    setTimeout(function() {
+      applyJob();
+    }, 1000); // Menunda eksekusi fungsi applyJob selama 1 detik (1000 milidetik)
+  });
+
+  document.getElementById("delete").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent default click behavior
+  
+    setTimeout(function() {
+      deleteApply();
+    }, 1000); // Menunda eksekusi fungsi deleteApply selama 1 detik (1000 milidetik)
+  });
 });
 
-
-
 //save As jobDetail.js
-
 function displayJobDetail() {
     // Mendapatkan id_pekerjaan dari localStorage yang di-set oleh searchJob.js
     var jobDetailId = localStorage.getItem("id_pekerjaan");
@@ -68,7 +91,7 @@ function displayJobDetail() {
   
                   <div class="">
                         <h4 class="mb-4">Apply For The Job</h4>
-                        <form id="applicationForm">
+                    
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
                                   <input type="text" id="tanggal" class="form-control" placeholder="Tanggal">
@@ -76,16 +99,17 @@ function displayJobDetail() {
                                 <div class="col-12 col-sm-6">
                                     <input type="text" id="filename" class="form-control" placeholder="Filename">
                                 </div>
+                                
                                 <div class="col-12">
-                                    <button id="applyButton" class="btn btn-primary w-100" type="submit">Apply Now</button>
-                                </div>
-                                <div class="col-12">
-                                    <button id="delete" class="btn btn-primary w-100" type="submit">Delete</button>
+                                    <button id="delete" class="btn btn-primary w-100" type="click">Delete</button>
                                 </div>
                             </div>
-                        </form>
+                
                         
                     </div>
+                    <div>
+							<button id="apply" type="click" class="btn btn-primary">Update</button>
+						      </div>
                 </div>
   
                 <div class="col-lg-4">
@@ -118,3 +142,78 @@ function displayJobDetail() {
         console.error("Error:", error);
       });
   }
+
+
+
+  function applyJob(){
+    console.log("applyJob");
+    //get data: tanggal and filename from HTML
+    var id_pekerjaan = localStorage.getItem("id_pekerjaan")
+    var tanggal = document.getElementById("tanggal").value;
+    var filename = document.getElementById("filename").value;
+
+    const reqData={
+        id_pekerjaan:id_pekerjaan,
+        tanggal:tanggal,
+        filename:filename
+    };
+
+    fetch("http://127.0.0.1:5000/addLetter",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reqData)
+    })
+    .then(response => response.json())
+    .then(data=>{
+        if(data.success){
+            document.getElementById("applyJobButton").style.visibility="hidden";
+            //unhide tombol edit dan delete?
+            //document.getElementById("edit").style.visibility="visible";  //untuk style.displat: none untuk hide, block untuk unhide
+            document.getElementById("delete").style.visibility="visible";
+            alert("Lamaran ditambahkan")
+        }
+        else{
+            alert(data.message)
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // Tangani kesalahan
+      });
+}
+
+function deleteApply(){
+    var id_pekerjaan = localStorage.getItem("id_pekerjaan")
+
+    const reqData={
+        id_pekerjaan:id_pekerjaan
+    }
+
+    fetch("http://localhost:5000/removeLetter",{
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reqData)
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        if(data.success){
+            document.getElementById("applyJobButton").style.visibility="visible";
+            //unhide tombol edit dan delete?
+            //document.getElementById("edit").style.visibility="visible";  //untuk style.displat: none untuk hide, block untuk unhide
+            document.getElementById("delete").style.visibility="hidden";
+            alert("Lamaran dihapus")
+        }
+        else{
+            alert(data.message)
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // Tangani kesalahan
+      });
+
+}

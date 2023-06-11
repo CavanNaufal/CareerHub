@@ -35,7 +35,7 @@
 <body>
 	<!-- Navbar Start -->
 	<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-		<a href="http://127.0.0.1:5000/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+		<a href="http://127.0.0.1:5000/company" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
 			<h1 class="m-0 text-primary">CareerHub</h1>
 		</a>
 		<button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -43,8 +43,15 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav ms-auto p-4 p-lg-0">
-				<a href="http://127.0.0.1:5000/" class="nav-item nav-link active">Home</a>
+				<a href="http://127.0.0.1:5000/company" class="nav-item nav-link active">Home</a>
 				<a href="http://127.0.0.1:5000/about" class="nav-item nav-link">About</a>
+				<!-- <div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
+					<div class="dropdown-menu rounded-0 m-0">
+						<a href="http://127.0.0.1:5000/getJobList" class="dropdown-item">Job List</a>
+						<a href="http://127.0.0.1:5000/getJobDetail" class="dropdown-item">Job Detail</a>
+					</div>
+				</div> -->
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 					<div class="dropdown-menu rounded-0 m-0">
@@ -54,25 +61,24 @@
 					</div>
 				</div>
 				<a href="http://127.0.0.1:5000/contact" class="nav-item nav-link">Contact</a>
-				<a href="http://127.0.0.1:5000/userprofile" id="username" class="nav-item nav-link" style="color: #00B074;">user</a>
+				<a href="http://127.0.0.1:5000/loginPelamar" id="logoutButton" class="nav-item nav-link" style="color: red;">Logout</a>
+				<a href="http://127.0.0.1:5000/companyprofile" id="username" class="nav-item nav-link" style="color: #00B074; text-decoration: underline;">user</a>
 			</div>
-			<a href="http://127.0.0.1:5000/loginPelamar" id="logoutButton" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" style="color: white; ">Logout<i class="fa fa-arrow-right ms-3"></i></a>
-			<!-- <a href="http://127.0.0.1:5000/addJob" id="postJob" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a> -->
+			<a href="http://127.0.0.1:5000/addJob" id="postJob" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
 		</div>
 	</nav>        
 	<!-- Navbar End -->
 
-
 	<section class="py-5 my-5">
 		<div class="container">
-			<h1 class="mb-5" style="color : #00B074">User Settings</h1>
+			<h1 class="mb-5" style="color : #00B074">Company Settings</h1>
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex" >
 				<div class="profile-tab-nav border-right">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
 							<img src="/static/img/user2.jpg" alt="Image" class="shadow"style="border: 4px solid #00B074;" >
 						</div>
-						<h4 class="text-center" id="fullname">Kiran Acharya</h4>
+						<h4 class="text-center" id="fullname"> </h4>
 					</div>
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 						<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true" >
@@ -99,47 +105,49 @@
 				</div>
 				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
 					<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-						<h3 class="mb-4">Account Settings</h3>
-						<!-- <form id="updateForm" action="/editPelamar" method="put"></form> -->
+						<h3 class="mb-4">Company Account Settings</h3>
+						<form id="updateForm" action="/editPerusahaan" method="put"></form>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>Nama</label>
-								  	<input type="text" id="name" class="form-control" value="Kiran">
+								  	<input type="text" id="nama" class="form-control" value="">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>Email</label>
-								  	<input type="text" id="email" class="form-control" value="Acharya">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>Alamat</label>
-								  	<input type="text" id="alamat" class="form-control" value="kiranacharya287@gmail.com">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>Education</label>
-								  	<input type="text" id="education" class="form-control" value="+91 9876543215">
+								  	<input type="text" id="email" class="form-control" value="">
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-								  	<label>Experience</label>
-								  	<input type="text" id="experience" class="form-control" value="Kiran Workspace">
+								  	<label>Alamat</label>
+								  	<input type="text" id="alamat" class="form-control" value="">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+								  	<label>Deskripsi</label>
+								  	<textarea id="deskripsi" class="form-control" value=""></textarea>
 								</div>
 							</div>
 						</div>
 						<div>
-							<button href="/userprofile" id="updateform" type="submit" class="btn btn-primary">Update</button>
+							<button href="/companyprofile" id="updateform" type="submit" class="btn btn-primary">Update</button>
 						</div>
-					<!-- </form> -->
+					</form>
 					</div>
-					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-						<h3 class="mb-4" style="font-weight: bold;">Password Settings</h3>
+					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab" 
+						<h3 class="mb-4">Password Settings</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Old password</label>
+								  	<input type="password" class="form-control">
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -163,7 +171,7 @@
 							</div>
 						</div>
 						<div>
-							<button id="changePassUser" type="click" class="btn btn-primary">Update</button>
+							<button id="changePassCompany"class="btn btn-primary">Update</button>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
@@ -269,7 +277,7 @@
 
     <!-- Template Javascript -->
     <script src="/static/js/main.js"></script>
-	<script src="/static/js/profilePage.js"></script>
-	<script src="/static/js/changePassUser.js"></script>
+	<script src="/static/js/Companyprofile.js"></script>
+	<script src="/static/js/changePassCompany.js"></script>
 </body>
 </html>
